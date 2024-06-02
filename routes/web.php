@@ -27,7 +27,8 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
 // Route::post('/calculadora', [CalculadoraController::class, 'sumar']);
 
 
-Route::redirect('/', '/Api');
+
+
 Route::get('/Api', function () {
     return view('blank-page');
 });
