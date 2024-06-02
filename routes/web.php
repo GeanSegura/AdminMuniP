@@ -25,3 +25,14 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
 // Route::get('/', [calculadoraController::class, 'mostrarCalculadora']);
 // Route::get('/calculadora',[calculadoraController::class,'mostrarCalculadora']);
 // Route::post('/calculadora', [CalculadoraController::class, 'sumar']);
+
+
+Route::redirect('/', '/Api');
+Route::get('/Api', function () {
+    return view('blank-page');
+});
+
+
+Route::get('/Api/help', function () {
+    return view('apiDocumentacion'); // Suponiendo que "/swagger" es la ruta de tu documentación Swagger
+});
