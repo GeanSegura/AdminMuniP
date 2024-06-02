@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\calculadoraController;
+use App\Http\Controllers\LoginController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +19,9 @@ use App\Http\Controllers\calculadoraController;
 Route::get('/', function () {
     return view('PortalMuni');
 });
+
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
+
 // Route::get('/', [calculadoraController::class, 'mostrarCalculadora']);
 // Route::get('/calculadora',[calculadoraController::class,'mostrarCalculadora']);
 // Route::post('/calculadora', [CalculadoraController::class, 'sumar']);
