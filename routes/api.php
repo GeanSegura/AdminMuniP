@@ -2,7 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\modificarApiUsuarioController;
+use App\Http\Controllers\modificarApiUsuario;
+use app\Http\Controllers\Controller;
+use App\Http\Controllers\TaskController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +18,10 @@ use App\Http\Controllers\modificarApiUsuarioController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
-Route::post('/POST',[modificarApiUsuarioController::class,'ModificarEstadoEmpleado']);
+Route::match(['get', 'post'], 'POST', [modificarApiUsuario::class, 'ModificarEstadoEmpleado']);
+
 
