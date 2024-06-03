@@ -21,7 +21,14 @@ Route::get('/', function () {
     return view('PortalMuni');
 });
 
-Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
+// Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
+
+Route::get('/login', [LoginController::class, 'mostrarTablaUsuarios'])->name('login');
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/login', [LoginController::class, 'eliminarUsuario']);
+
+
+
 
 // Route::get('/', [calculadoraController::class, 'mostrarCalculadora']);
 // Route::get('/calculadora',[calculadoraController::class,'mostrarCalculadora']);

@@ -115,6 +115,22 @@
             width: 380px;
         }
 
+         /* Estilos para el botón */
+         button {
+            background-color: #4CAF50; /* Color de fondo verde */
+            color: white; /* Color del texto blanco */
+            border: none;
+            padding: 10px 20px; /* Ajustar el espaciado del botón */
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* Transición suave al pasar el ratón */
+        }
+
+        button:hover {
+            background-color: #45a049; /* Cambiar el color de fondo al pasar el ratón */
+        }
+
+
     </style>
 </head>
 <body>
@@ -138,29 +154,45 @@
                 </ul>
             </div>
             <div class="right">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Usuario</th>
-                            <th>Contraseña</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Usuario1</td>
-                            <td>********</td>
-                            <td>Activo</td>
-                            <td>
-                                <span class="icon">🗑️</span>
-                                <span class="icon">✏️</span>
-                                <span class="icon">➕</span>
-                            </td>
-                        </tr>
-                        <!-- Más filas aquí -->
-                    </tbody>
-                </table>
+            <form action="{{ route('login') }}" method="GET">
+            <label for="busqueda">Buscar usuario:</label>
+                    <input type="text" id="busqueda" name="busqueda">
+                    <button type="submit">Buscar</button> <!-- Aplicamos estilos al botón -->
+        <table style="margin-top:20px;">
+    <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Contraseña</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    @isset($usuarios)
+        @foreach ($usuarios as $usuario)
+            <tr>
+                <td>{{ $usuario->vc_nombre }}</td>
+                <td>{{ $usuario->vc_contrasena }}</td>
+                <td>{{ $usuario->vc_estado_registro }}</td>
+       
+                <td>
+                                        <form action="{{ route('login') }}" method="POST" style="display: inline;">
+                                            @csrf
+                                            <input type="hidden" name="nombre" value="{{ $usuario->vc_nombre }}">
+                                            <button type="submit" style="background: none; border: none; cursor: pointer;">
+                                                <span class="icon">🗑️</span>
+                                            </button>
+                                        </form>
+                                        <span class="icon">✏️</span>
+                                        <span class="icon">➕</span>
+                                    </td>
+                                   
+            
+            </tr>
+        @endforeach
+    @endisset
+</table>
+    </form>
+                
             </div>
         </div>
     </div>

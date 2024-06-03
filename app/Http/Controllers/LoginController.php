@@ -27,4 +27,20 @@ class LoginController extends Controller
             return view('PortalMuni')->with('error', $error);
         }
     }
+    public function mostrarTablaUsuarios()
+    {
+        $usuarios = DB::select('CALL ObtenerUsuarios');
+       
+        return view('administradorPortal', ['usuarios' => $usuarios]);
+    }
+
+    
+    public function eliminarUsuario(Request $request)
+    {
+      
+        $nombre = $request->input('nombre');
+        DB::select('CALL EliminarUsuario(?)', [$nombre]);
+
+        return view('administradorPortal')->with('success', 'Usuario eliminado correctamente.');
+    }
 }
