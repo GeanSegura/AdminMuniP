@@ -91,7 +91,7 @@
 
 .form-group {
   margin-bottom: 15px;
-  padding-left: 30px;
+  padding-left: 28px;
   padding-right: 40px;
 }
 
@@ -166,10 +166,12 @@
         </div>
         <div class="right">
             <h2 id="titleIniciarSesion">Iniciar sesión</h2>
-            <form action="tu_script_de_procesamiento.php" method="post">
+            <form action="{{ route('login') }}" method="post">
+            @csrf
                 <div class="login-container">
                     
-                    <form class="login-form" action="#" method="post">
+                    <form class="login-form" >
+                      
                       <div class="form-group">
                       
                         <input type="text" id="username" name="username" placeholder="Usuario">
@@ -187,7 +189,9 @@
                       <a href="#">¿Olvidaste tu contraseña?</a>
                     </div>
                   </div>
-                  
+                  @if(isset($error))
+            <span class="text-danger">{{ $error }}</span>
+        @endif
             </form>
         </div>
     </div>

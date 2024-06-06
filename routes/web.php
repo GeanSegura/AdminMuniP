@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\calculadoraController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\modificarApiUsuarioController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +20,28 @@ use App\Http\Controllers\calculadoraController;
 Route::get('/', function () {
     return view('PortalMuni');
 });
+
+// Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
+
+Route::get('/login', [LoginController::class, 'mostrarTablaUsuarios'])->name('login');
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/login', [LoginController::class, 'eliminarUsuario']);
+
+
+
+
 // Route::get('/', [calculadoraController::class, 'mostrarCalculadora']);
 // Route::get('/calculadora',[calculadoraController::class,'mostrarCalculadora']);
 // Route::post('/calculadora', [CalculadoraController::class, 'sumar']);
+
+
+
+
+Route::get('/Api', function () {
+    return view('blank-page');
+});
+
+
+Route::get('/Api/help', function () {
+    return view('apiDocumentacion'); // Suponiendo que "/swagger" es la ruta de tu documentación Swagger
+});
