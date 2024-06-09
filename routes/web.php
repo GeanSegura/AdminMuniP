@@ -1,9 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\calculadoraController;
-use App\Http\Controllers\LoginController;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\modificarApiUsuarioController;
+
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\MainMenuController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
 
 
 /*
@@ -17,31 +22,15 @@ use App\Http\Controllers\modificarApiUsuarioController;
 |
 */
 
-Route::get('/', function () {
-    return view('PortalMuni');
-});
+Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
-
-Route::get('/login', [LoginController::class, 'mostrarTablaUsuarios'])->name('login');
-Route::post('/login', [LoginController::class, 'authenticate']);
-Route::post('/login', [LoginController::class, 'eliminarUsuario']);
-
-
-
-
-// Route::get('/', [calculadoraController::class, 'mostrarCalculadora']);
-// Route::get('/calculadora',[calculadoraController::class,'mostrarCalculadora']);
-// Route::post('/calculadora', [CalculadoraController::class, 'sumar']);
-
-
-
-
-Route::get('/Api', function () {
-    return view('blank-page');
-});
-
-
-Route::get('/Api/help', function () {
-    return view('apiDocumentacion'); // Suponiendo que "/swagger" es la ruta de tu documentación Swagger
+// Rutas para usuarios autenticados
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/dashboard', [MainMenuController::class, 'adminDashboard'])->name('admin.dashboard');
+    Route::get('/worker/dashboard', [MainMenuController::class, 'workerDashboard'])->name('worker.dashboard');
+    Route::resource('users', UserController::class);
+    Route::resource('roles', RoleController::class);
+    Route::resource('permissions', PermissionController::class);
 });
